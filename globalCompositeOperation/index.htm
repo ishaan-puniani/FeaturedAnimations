@@ -1,0 +1,126 @@
+
+<!-- saved from url=(0079)https://developer.mozilla.org/samples/canvas-tutorial/6_1_canvas_composite.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>A canvas globalCompositeOperation example</title>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43444091-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<meta name="description" content="A canvas globalCompositeOperation" />
+<meta name="keywords" content="html5, canvas, globalCompositeOperation" />
+<link rel="author" href="https://plus.google.com/u/0/+IshaanPuniani/posts" />
+<link rel="canonical" href="http://coderower.blogspot.se/" />
+
+<meta property="og:url" content="http://coderower.blogspot.se/" />
+<meta property="og:image" content="http://lh5.googleusercontent.com/-M1serbRKEHM/AAAAAAAAAAI/AAAAAAAAC3c/oI3L7uko3oo/s80-c/photo.jpg" />
+<meta property="og:description" content="A canvas globalCompositeOperation" />
+<meta property="og:title" content="A canvas globalCompositeOperation" />
+<meta property="og:site_name" content="CodeRower" />
+<meta property="og:see_also" content="http://coderower.blogspot.se/" />
+
+<meta itemprop="name" content="A canvas globalCompositeOperation" />
+<meta itemprop="description" content="A canvas globalCompositeOperation" />
+<meta itemprop="image" content="http://lh5.googleusercontent.com/-M1serbRKEHM/AAAAAAAAAAI/AAAAAAAAC3c/oI3L7uko3oo/s80-c/photo.jpg" />
+
+<meta name="twitter:card" content="A canvas globalCompositeOperation" />
+<meta name="twitter:url" content="http://coderower.blogspot.se/" />
+<meta name="twitter:title" content="A canvas globalCompositeOperation" />
+<meta name="twitter:description" content="A canvas globalCompositeOperation" />
+<meta name="twitter:image" content="http://lh5.googleusercontent.com/-M1serbRKEHM/AAAAAAAAAAI/AAAAAAAAC3c/oI3L7uko3oo/s80-c/photo.jpg" />
+
+    
+    <script type="application/x-javascript">
+      var compositeTypes = [
+        'source-over','source-in','source-out','source-atop',
+        'destination-over','destination-in','destination-out','destination-atop',
+        'lighter','darker','copy','xor'
+      ];
+      function draw(){
+        for (i=0;i<compositeTypes.length;i++){
+          var label = document.createTextNode(compositeTypes[i]);
+          document.getElementById('lab'+i).appendChild(label);
+          var ctx = document.getElementById('tut'+i).getContext('2d');
+
+          // draw rectangle
+          ctx.fillStyle = "#09f";
+          ctx.fillRect(15,15,70,70);
+
+          // set composite property
+          ctx.globalCompositeOperation = compositeTypes[i];
+          
+          // draw circle
+          ctx.fillStyle = "#f30";
+          ctx.beginPath();
+          ctx.arc(75,75,35,0,Math.PI*2,true);
+          ctx.fill();
+        }
+      }
+    </script>
+    <style type="text/css">
+      body { margin: 20px; font-family: arial,verdana,helvetica; background: #fff;}
+      h1 { font-size: 140%; font-weight:normal; color: #036; border-bottom: 1px solid #ccc; }
+      canvas { border: 2px solid #000; margin-bottom: 5px; }
+      td { padding: 7px; }
+      pre { float:left; display:block; background: rgb(238,238,238); border: 1px dashed #666; padding: 15px 20px; margin: 0 0 10px 0; }
+    </style>
+  </head>
+  <body onload="draw();">
+    <h1>A canvas <code>globalCompositeOperation</code> example</h1>
+    <div>
+      <table>
+        <tbody><tr>
+          <td><canvas id="tut0" width="125" height="125"></canvas><br><label id="lab0">source-over</label></td>
+          <td><canvas id="tut1" width="125" height="125"></canvas><br><label id="lab1">source-in</label></td>
+          <td><canvas id="tut2" width="125" height="125"></canvas><br><label id="lab2">source-out</label></td>
+          <td><canvas id="tut3" width="125" height="125"></canvas><br><label id="lab3">source-atop</label></td>
+        </tr>
+        <tr>
+          <td><canvas id="tut4" width="125" height="125"></canvas><br><label id="lab4">destination-over</label></td>
+          <td><canvas id="tut5" width="125" height="125"></canvas><br><label id="lab5">destination-in</label></td>
+          <td><canvas id="tut6" width="125" height="125"></canvas><br><label id="lab6">destination-out</label></td>
+          <td><canvas id="tut7" width="125" height="125"></canvas><br><label id="lab7">destination-atop</label></td>
+        </tr>
+        <tr>
+          <td><canvas id="tut8" width="125" height="125"></canvas><br><label id="lab8">lighter</label></td>
+          <td><canvas id="tut9" width="125" height="125"></canvas><br><label id="lab9">darker</label></td>
+          <td><canvas id="tut10" width="125" height="125"></canvas><br><label id="lab10">copy</label></td>
+          <td><canvas id="tut11" width="125" height="125"></canvas><br><label id="lab11">xor</label></td>
+        </tr>
+      </tbody></table>
+      <pre>var compositeTypes = [
+  'source-over','source-in','source-out','source-atop',
+  'destination-over','destination-in','destination-out','destination-atop',
+  'lighter','darker','copy','xor'
+];
+function draw(){
+  for (i=0;i&lt;compositeTypes.length;i++){
+    var label = document.createTextNode(compositeTypes[i]);
+    document.getElementById('lab'+i).appendChild(label);
+    var ctx = document.getElementById('tut'+i).getContext('2d');
+
+    // draw rectangle
+    ctx.fillStyle = "#09f";
+    ctx.fillRect(15,15,70,70);
+
+    // set composite property
+    ctx.globalCompositeOperation = compositeTypes[i];
+    
+    // draw circle
+    ctx.fillStyle = "#f30";
+    ctx.beginPath();
+    ctx.arc(75,75,35,0,Math.PI*2,true);
+    ctx.fill();
+  }
+}
+      </pre>
+    </div>
+  
+
+</body></html>
