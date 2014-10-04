@@ -1,0 +1,103 @@
+<html>
+<head>
+<title>Frame Glowing Animation</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43444091-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body>
+<img src="frame_glow.png" width="1" height="1" />
+<img src="frame_glow_mask.png" width="1" height="1" />
+<div id="animationContainer" style="height: 217px; width: 202px; background-color: black;">
+</div>
+
+For Details read this.
+<script>
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+var frame_glow = new Image(),
+frame_glow_mask = new Image();
+  frame_glow.src = "frame_glow.png";
+  frame_glow_mask.src = "frame_glow_mask.png" ;
+
+  
+        var me = this,
+                itemCanvas = document.createElement("canvas"),
+                itemCanvasContext;
+				document.getElementById("animationContainer").appendChild(itemCanvas);
+        me.itmctx = itemCanvas;
+        itemCanvas.height = 217;
+        itemCanvas.width = 202;
+        itemCanvasContext = itemCanvas.getContext("2d");
+  
+    loop = function(){
+	
+
+    var props = this,
+                        imageFrame = frame_glow,
+                        imageMask = frame_glow_mask,
+                        imageMaskWidth = 135,
+                        imageMaskHeight = 135,
+                        imageFrameHeight = 217,
+                        imageFrameWidth = 202,
+                        durationToMoveX = imageFrameWidth / 8,
+                        durationToMoveY = imageFrameHeight / 8,
+                        xInc = 5,
+                        yInc = 4;
+
+
+                if (props.time === undefined|| props.time === 0) {
+					itemCanvasContext.clearRect(0, 0, 202, 217);
+                    props.time = 1;
+                    props.x = -1 * xInc;
+                    props.y = -1 * yInc;
+                } else {
+                    props.time += 1;
+                    if (props.time < durationToMoveX) {
+                        props.x += xInc;
+                    } else if (props.time >= durationToMoveX && props.time < (durationToMoveX + durationToMoveY))
+                    {
+                        props.y += yInc;
+                    }
+                    else if (props.time >= (durationToMoveX + durationToMoveY) && props.time < ((2 * durationToMoveX) + durationToMoveY))
+                    {
+                        props.x -= xInc;
+                    }
+                    else if (props.time >= ((2 * durationToMoveX) + durationToMoveY) && props.time < (2 * (durationToMoveX + durationToMoveY)))
+                    {
+                        props.y -= yInc;
+                    } else {
+                        props.time = 0;
+                      //  visible = false;
+                    }
+                }
+                
+                    itemCanvasContext.globalCompositeOperation = "copy";
+                    itemCanvasContext.drawImage(imageMask, 0, 0, imageMaskWidth, imageMaskHeight, props.x, props.y, imageMaskWidth, imageMaskHeight);
+                    itemCanvasContext.globalCompositeOperation = "source-in";
+                    itemCanvasContext.drawImage(imageFrame, 0, 0, imageFrameWidth, imageFrameHeight, 0, 0, imageFrameWidth, imageFrameHeight);
+                
+            };
+    
+(function animloop(){
+  requestAnimFrame(animloop);
+  loop();
+})();
+
+
+</script>
+</body>
+</html>
